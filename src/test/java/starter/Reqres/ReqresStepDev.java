@@ -71,4 +71,18 @@ public class ReqresStepDev {
     public void sendPutUpdateUser() {
         SerenityRest.when().put(ReqresAPI.PUT_UPDATE_USER);
     }
+
+    //Scenario 4
+    @Given("Delete user with id {int}")
+    public void deleteUserWithId(int id){
+        reqresAPI.deleteUser(id);
+    }
+    @When("Send delete user request")
+    public void sendDeleteUserRequest(){
+        SerenityRest.when().delete(ReqresAPI.DELETE_USER);
+    }
+    @Then("Status code should be {int} No Content")
+    public void StatusCodeShouldBeNoContent(int noContent){
+        SerenityRest.then().statusCode(noContent);
+    }
 }
