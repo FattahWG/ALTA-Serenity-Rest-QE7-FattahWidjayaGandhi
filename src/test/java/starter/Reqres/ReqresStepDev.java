@@ -37,6 +37,16 @@ public class ReqresStepDev {
         SerenityRest.then().body(ReqresResponses.PAGE, equalTo(page));
     }
 
+    @And("Validate get list user json schema")
+    public void ValidateGetListUserJsonSchema() {
+        File json = new File(ReqresAPI.JSON_SCHEMA + "/GetListUserJsonSchema.json");
+        reqresAPI.setPostCreateNewUser(json);
+    }
+    @And("Validate create user json schema")
+    public void ValidateCreateUserJsonSchema(){
+        File json = new File(ReqresAPI.JSON_SCHEMA + "/GetListUserJsonSchema.json");
+    }
+
     //Scenario 2
     @Given("Post create user with valid json")
     public void postCreateUserWithValidJson() {
