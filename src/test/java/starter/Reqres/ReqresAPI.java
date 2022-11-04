@@ -31,12 +31,12 @@ public class ReqresAPI {
     public void setPutUpdateUser(int id, File json){
         SerenityRest.given().pathParam("id", id).contentType(ContentType.JSON).body(json);
     }
-
     @Step("Delete User")
     public void deleteUser(int id){
         SerenityRest.given().pathParam("id", id);
     }
 
+    //Tugas
     @Step("Login user with valid id")
     public void loginUser(File json){
         SerenityRest.given().contentType(ContentType.JSON).body(json);
@@ -45,4 +45,10 @@ public class ReqresAPI {
     public void loginInvalidUser(File json){
         SerenityRest.given().contentType(ContentType.JSON).body(json);
     }
+    @Step("Register valid user")
+    public void RegisterValidUser(File json){
+        SerenityRest.given().contentType(ContentType.JSON).body(json);
+    }
+    @Step("Register invalid user")
+    public void RegisterInvalidUser(File json){SerenityRest.given().contentType(ContentType.JSON).body(json);}
 }

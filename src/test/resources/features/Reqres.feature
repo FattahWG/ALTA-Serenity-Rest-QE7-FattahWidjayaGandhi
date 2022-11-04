@@ -5,7 +5,6 @@ Feature: Reqres feature GET
     When Send Get list user request
     Then Status code should be 200 OK
     And Response body page should be <page>
-    And Validate get list user json schema
     Examples:
     | page |
     | 1    |
@@ -41,11 +40,35 @@ Feature: Reqres feature GET
     When Send post login user request
     Then Status code should be 200 OK
     And Response body should contain "QpwL5tke4Pnpja7X4" as token
+    And Validate login user with json shcema
   @Tugas
   Scenario: Login invalid user
     Given Post login invalid user with valid json
     When Send post login invalid user request
     Then Status code shold be 400 ERROR
     And Response body page should be contain "Missing password"
+    And Validate invalid login user with json shcema
+   @Tugas
+   Scenario Outline: Register valid user
+     Given post regist valid user with valid json
+     When send post regist valid user request
+     Then Status code should be 200 OK
+     And Response body page should be id <id> and token "QpwL5tke4Pnpja7X4"
+     And Validate register user with json shcema
+     Examples:
+       | id |
+       | 4  |
+
+   @Tugas
+   Scenario: Register invalid user
+     Given post regist invalid user with valid json
+     When send post regist invalid user request
+     Then Status code shold be 400 ERROR
+     And Response body page should be error "Missing password"
+     And Validate register invalid user with json schema
+
+   @Tugas
+   Scenario:
+
 
 

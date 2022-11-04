@@ -7,9 +7,9 @@ import io.cucumber.java.en.When;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Steps;
 import starter.Reqres.ReqresAPI;
-import static org.hamcrest.Matchers.equalTo;
-
+import io.restassured.module.jsv.JsonSchemaValidator;
 import java.io.File;
+import static org.hamcrest.Matchers.equalTo;
 
 public class ReqresStepDev {
 
@@ -31,11 +31,6 @@ public class ReqresStepDev {
     @And("Response body page should be {int}")
     public void responseBody(int page) {
         SerenityRest.then().body(ReqresResponses.PAGE, equalTo(page));
-    }
-    @And("Validate get list user json schema")
-    public void ValidateGetListUserJsonSchema() {
-        File json = new File(ReqresAPI.JSON_SCHEMA + "/GetListUserJsonSchema.json");
-        reqresAPI.setPostCreateNewUser(json);
     }
 
     //Scenario 2
@@ -98,6 +93,11 @@ public class ReqresStepDev {
     public void responBodyToken(String token){
         SerenityRest.then().body(ReqresResponses.TOKEN, equalTo(token));
     }
+    @And("Validate login user with json shcema")
+    public void ValidateLoginUser(){
+        File json = new File(ReqresAPI.JSON_SCHEMA + "/LoginSuccesSchema.json");
+        SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(json));
+    }
 
     //Tugas Login Unsucces
     @Given("Post login invalid user with valid json")
@@ -106,7 +106,9 @@ public class ReqresStepDev {
         reqresAPI.loginInvalidUser(json);
     }
     @When("Send post login invalid user request")
-    public void sendPostLoginInvalidUserRequest() { SerenityRest.when().post(ReqresAPI.LOGIN_USER);}
+    public void sendPostLoginInvalidUserRequest() {
+        SerenityRest.when().post(ReqresAPI.LOGIN_USER);
+    }
     @Then("Status code shold be {int} ERROR")
     public void statusCodeSholdBeERROR(int error) {
         SerenityRest.then().statusCode(error);
@@ -115,4 +117,53 @@ public class ReqresStepDev {
     public void responseBodyPageShouldBeContain(String error) {
         SerenityRest.then().body(ReqresResponses.ERROR, equalTo(error));
     }
+    @And("Validate invalid login user with json shcema")
+    public void ValidateInvalidLoginUser(){
+        File json = new File(ReqresAPI.JSON_SCHEMA + "/LoginUnsuccesSchema.json");
+        SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(json));
+    }
+
+    //Tugas Login with Invalid User
+    @Given("post regist valid user with valid json")
+    public void postRegistValidUserWithValidJson() {
+        File json = new File(reqresAPI.JSON_REG_BODY + "/RegisterUserSucces.json");
+        reqresAPI.RegisterValidUser(json);
+    }
+    @When("send post regist valid user request")
+    public void sendPostRegistValidUserRequest() {
+        SerenityRest.when().post(ReqresAPI.REGISTER_USER);
+    }
+    @And("Response body page should be id {int} and token {string}")
+    public void responseBodyPageShouldBeIdAndToken(int id, String token) {
+        SerenityRest.then().body(ReqresResponses.ID, equalTo(id))
+                            .body(ReqresResponses.TOKEN, equalTo(token));
+    }
+    @And("Validate register user with json shcema")
+    public void ValidateRegisUser(){
+        File json = new File(ReqresAPI.JSON_SCHEMA + "/RegisterValidUserSchema.json");
+        SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(json));
+    }
+
+    //Tugas Register with invalid user
+    @Given("post regist invalid user with valid json")
+    public void postRegistInvalidUserWithValidJson() {
+        File json = new File(ReqresAPI.JSON_REG_BODY + "/RegisterUserUnsucces.json");
+        reqresAPI.RegisterInvalidUser(json);
+    }
+    @When("send post regist invalid user request")
+    public void sendPostRegistInvalidUserRequest() { SerenityRest.when().post(ReqresAPI.REGISTER_USER);
+    }
+
+    @And("Response body page should be error {string}")
+    public void responseBodyPageShouldBeError(String error) {
+        SerenityRest.then().body(ReqresResponses.ERROR, equalTo(error));
+    }
+
+    @And("Validate register invalid user with json schema")
+    public void validateRegisterInvalidUserWithJsonSchema() {
+        File json = new File(ReqresAPI.JSON_SCHEMA + "/RegisterInvalidUserSchema.json");
+        SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(json));
+    }
+
+
 }
