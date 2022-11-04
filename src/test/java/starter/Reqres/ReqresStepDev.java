@@ -63,6 +63,11 @@ public class ReqresStepDev {
     public void sendPutUpdateUser() {
         SerenityRest.when().put(ReqresAPI.PUT_UPDATE_USER);
     }
+    @And("Validate put update with json shcema")
+    public void validatePutUpdateWithJsonShcema() {
+        File json = new File(ReqresAPI.JSON_SCHEMA + "/UpdateUserShcema.json");
+        SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(json));
+    }
 
     //Scenario 4
     @Given("Delete user with id {int}")
@@ -98,5 +103,4 @@ public class ReqresStepDev {
         File json = new File(ReqresAPI.JSON_SCHEMA + "/RegisterValidUserSchema.json");
         SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(json));
     }
-
 }

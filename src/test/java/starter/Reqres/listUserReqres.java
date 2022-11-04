@@ -17,12 +17,10 @@ public class listUserReqres {
     public void getSingleUserWithParameterUserId(int id) {
         reqresAPI.getSingleUsers(id);
     }
-
     @When("Send get single user request")
     public void sendGetSingleUserRequest() {
         SerenityRest.when().get(ReqresAPI.SINGLE_USER);
     }
-
     @And("Response body page be null")
     public void responseBodyPageBeNull() {
         SerenityRest.then().body(ReqresResponses.NOT_FOUND,equalTo(null));
@@ -34,4 +32,5 @@ public class listUserReqres {
                 .assertThat()
                 .body(JsonSchemaValidator.matchesJsonSchema(json));
     }
+
 }

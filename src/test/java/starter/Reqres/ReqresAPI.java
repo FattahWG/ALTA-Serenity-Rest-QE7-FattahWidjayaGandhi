@@ -34,8 +34,6 @@ public class ReqresAPI {
     public void deleteUser(int id){
         SerenityRest.given().pathParam("id", id);
     }
-    @Step("Single user")
-    public void SingleUser(int id){SerenityRest.given().pathParam("id", id);}
     @Step("Get list users")
     public void getListUsers(int page){
         SerenityRest.given().pathParam("page", page);

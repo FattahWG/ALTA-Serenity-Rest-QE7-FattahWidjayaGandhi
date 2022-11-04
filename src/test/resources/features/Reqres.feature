@@ -15,17 +15,18 @@ Feature: Reqres feature GET
     When Send post create user request
     Then Status code should be 201 Created
     And Response body should contain name "Fattah" and job "QA Engineer"
-  @Latihan
+  @Tugas
   Scenario Outline: Put update user with json
     Given Put update user with valid json with <id>
     When Send put update user
     Then Status code should be 200 OK
     And Response body should contain name "Fattah Update" and job "QA Engineer"
+    And Validate put update with json shcema
     Examples:
       | id |
       | 1  |
       | 2  |
-  @Latihan
+  @Tugas
   Scenario Outline: Delete user with valid id
     Given Delete user with id <id>
     When Send delete user request
