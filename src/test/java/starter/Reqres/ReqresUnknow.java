@@ -8,7 +8,6 @@ import io.restassured.module.jsv.JsonSchemaValidator;
 
 import static org.hamcrest.Matchers.equalTo;
 
-
 public class ReqresUnknow {
     @Steps
     ReqresAPI reqresAPI;

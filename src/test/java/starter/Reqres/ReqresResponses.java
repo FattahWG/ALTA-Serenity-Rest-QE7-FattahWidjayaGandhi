@@ -10,4 +10,6 @@ public class ReqresResponses {
     public static final String DATA_ID = "data.id";
     public static final String DATA_NAME = "data.name";
 
+    public static final String NOT_FOUND = "null";
+
 }

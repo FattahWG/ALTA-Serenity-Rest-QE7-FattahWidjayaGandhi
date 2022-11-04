@@ -17,7 +17,7 @@ public class ReqresStepDev {
 
     @Given("Get list user with parameters page {int}")
     public void getListUserWithParameters(int page) {
-        reqresAPI.setGetListUser(page);
+        reqresAPI.getListUsers(page);
     }
     @When("Send Get list user request")
     public void sendGetListUserRequest() {
@@ -98,4 +98,5 @@ public class ReqresStepDev {
         File json = new File(ReqresAPI.JSON_SCHEMA + "/RegisterValidUserSchema.json");
         SerenityRest.then().assertThat().body(JsonSchemaValidator.matchesJsonSchema(json));
     }
+
 }

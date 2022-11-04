@@ -20,11 +20,8 @@ public class ReqresAPI {
     public static String REGISTER_USER = URL + "/api/register";
     public static String UNKNOW_LIST = URL + "/api/unknow?page={page}";
     public static String UNKNOW_PAGE = URL + "/api/unknow/{id}";
+    public static String SINGLE_USER = URL + "/api/users/{id}";
 
-    @Step("Get list users")
-    public void setGetListUser(int page){
-        SerenityRest.given().pathParam("page", page);
-    }
     @Step("Post create new user")
     public void setPostCreateNewUser(File json){
         SerenityRest.given().contentType(ContentType.JSON).body(json);
@@ -37,6 +34,13 @@ public class ReqresAPI {
     public void deleteUser(int id){
         SerenityRest.given().pathParam("id", id);
     }
+    @Step("Single user")
+    public void SingleUser(int id){SerenityRest.given().pathParam("id", id);}
+    @Step("Get list users")
+    public void getListUsers(int page){
+        SerenityRest.given().pathParam("page", page);
+    }
+
 
     //Tugas
     @Step("Login user with valid id")
@@ -57,5 +61,7 @@ public class ReqresAPI {
     public void setGetUnkow(int page){SerenityRest.given().pathParam("page", page);}
     @Step("Get single unkow")
     public void getUnkowPage(int id){SerenityRest.given().pathParam("id", id);}
-
+    @Step("Get single users")
+    public void getSingleUsers(int id) {
+        SerenityRest.given().pathParam("id", id);}
 }
